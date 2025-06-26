@@ -77,12 +77,6 @@ const Education = () => {
                         {edu.grade}
                       </div>
                     )}
-                    
-                    {edu.grade && (
-                      <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                        {edu.grade}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>
