@@ -6,8 +6,8 @@ const Education = () => {
     {
       degree: "Master of Computer Application",
       institution: "D.Y. Patil Centre for Management and Research, Pune",
-      status: "Pursuing",
-      year: "Current",
+      grade: "CGPA: 7.91",
+      year: "2023-2025",
       icon: <GraduationCap className="h-6 w-6" />
     },
     {
@@ -78,9 +78,9 @@ const Education = () => {
                       </div>
                     )}
                     
-                    {edu.status && (
+                    {edu.grade && (
                       <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                        {edu.status}
+                        {edu.grade}
                       </div>
                     )}
                   </div>

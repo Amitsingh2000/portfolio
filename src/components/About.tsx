@@ -36,8 +36,8 @@ const About = () => {
               <Target className="h-12 w-12 mb-4 text-blue-200" />
               <h3 className="text-xl font-semibold mb-4">Career Objective</h3>
               <p className="text-blue-100 leading-relaxed">
-                To leverage my technical expertise and problem-solving skills to deliver 
-                innovative and efficient software solutions while contributing to the success 
+                To leverage my technical expertise and problem-solving skills to deliver
+                innovative and efficient software solutions while contributing to the success
                 of the organization.
               </p>
             </div>
@@ -45,11 +45,13 @@ const About = () => {
             <div className="bg-gray-50 rounded-2xl p-8">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Current Status</h3>
               <p className="text-gray-700 leading-relaxed">
-                Currently pursuing Master of Computer Application at D.Y. Patil Centre 
-                for Management and Research, Pune. Passionate about full-stack development 
-                with expertise in Java, Spring Boot, and modern web technologies.
+                Successfully completed Master of Computer Application at D.Y. Patil Centre
+                for Management and Research, Pune with <strong>CGPA: 7.91 (First Class with Distinction)</strong>.
+                Passionate about full-stack development with expertise in Java, Spring Boot, and modern web technologies.
+                Currently seeking exciting opportunities to kick-start my career in the software development industry.
               </p>
             </div>
+
           </div>
 
           <div className="space-y-6">
