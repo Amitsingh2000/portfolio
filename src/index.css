@@ -315,7 +315,8 @@ button { font-family: var(--font); cursor: pointer; }
   font-weight: 500;
   transition: color .2s, background .2s;
 }
-.header__mobile-nav-btn:hover { color: #a5b4fc; background: rgba(99,102,241,.08); }
+.header__mobile-nav-btn:hover,
+.header__mobile-nav-btn--active { color: #a5b4fc; background: rgba(99,102,241,.12); font-weight: 600; }
 
 /* ═══════════════════════════════════════════════
    HERO

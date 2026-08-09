@@ -18,17 +18,44 @@ const Header = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-      const current = navItems
+
+      // Use array reverse find for cross-browser compatibility instead of findLast
+      const current = [...navItems]
+        .reverse()
         .map(i => document.getElementById(i.id))
-        .findLast(s => s && window.scrollY >= s.offsetTop - 130);
-      if (current) setActiveSection(current.id);
+        .find(s => s && window.scrollY >= s.offsetTop - 140);
+
+      setActiveSection(current ? current.id : '');
     };
+
+    onScroll();
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  // Close mobile navigation drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const topOffset = 70;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - topOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     setIsOpen(false);
   };
 
@@ -38,7 +65,10 @@ const Header = () => {
         {/* Logo */}
         <button
           className="header__logo"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setIsOpen(false);
+          }}
           aria-label="Scroll to top"
         >
           <span className="header__logo-mark">ap/</span>
@@ -48,13 +78,14 @@ const Header = () => {
         {/* Desktop nav */}
         <nav className="header__nav" aria-label="Main navigation">
           {navItems.map(item => (
-            <button
+            <a
               key={item.id}
+              href={`#${item.id}`}
               className={`header__nav-btn ${activeSection === item.id ? 'header__nav-btn--active' : ''}`}
-              onClick={() => scrollTo(item.id)}
+              onClick={(e) => scrollTo(e, item.id)}
             >
               {item.name}
-            </button>
+            </a>
           ))}
         </nav>
 
@@ -75,6 +106,7 @@ const Header = () => {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isOpen}
+          aria-controls="mobile-menu"
         >
           {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -82,23 +114,27 @@ const Header = () => {
 
       {/* Mobile drawer */}
       <div
+        id="mobile-menu"
         className={`header__mobile-menu ${isOpen ? 'header__mobile-menu--open' : ''}`}
         role="navigation"
         aria-label="Mobile navigation"
+        aria-hidden={!isOpen}
       >
         {navItems.map(item => (
-          <button
+          <a
             key={item.id}
-            className="header__mobile-nav-btn"
-            onClick={() => scrollTo(item.id)}
+            href={`#${item.id}`}
+            className={`header__mobile-nav-btn ${activeSection === item.id ? 'header__mobile-nav-btn--active' : ''}`}
+            onClick={(e) => scrollTo(e, item.id)}
           >
             {item.name}
-          </button>
+          </a>
         ))}
         <a
           href="https://drive.google.com/file/d/17H_B2-q460szHao0_MNQ4LwUetopYuyd/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => setIsOpen(false)}
           style={{
             display: 'block',
             margin: '4px 0 2px',
